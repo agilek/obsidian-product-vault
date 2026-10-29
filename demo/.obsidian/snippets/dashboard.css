@@ -1,0 +1,216 @@
+/* Dashboard layout for notes with cssclasses: dashboard */
+.markdown-preview-view.dashboard .markdown-preview-sizer,
+.markdown-source-view.mod-cm6.dashboard .cm-sizer,
+.markdown-source-view.mod-cm6.dashboard .cm-content { max-width: none !important; width: 100% !important; }
+.dashboard .dash { margin-top: 0.5em; }
+.dashboard .dash-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.dashboard .dash-tile { background: var(--background-secondary); border: 1px solid var(--background-modifier-border); border-radius: 8px; padding: 10px 14px; }
+.dashboard .dash-num { font-size: 1.9em; font-weight: 700; line-height: 1.1; }
+.dashboard .dash-label { font-size: 0.8em; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.dashboard .dash-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 12px; align-items: start; }
+.dashboard .dash-card { background: var(--background-secondary); border: 1px solid var(--background-modifier-border); border-radius: 8px; padding: 8px 12px 10px; min-width: 0; }
+.dashboard .dash-card h4 { margin: 2px 0 6px; font-size: 0.95em; color: var(--text-muted); }
+.dashboard .dash-body table { width: 100%; font-size: 0.85em; margin: 0; }
+.dashboard .dash-body th { font-size: 0.8em; color: var(--text-faint); }
+.dashboard .dash-body td, .dashboard .dash-body th { padding: 2px 6px; }
+.dashboard .dash-body p { margin: 0; color: var(--text-faint); font-size: 0.85em; }
+
+/* Kanban board (cssclasses: kanban) */
+.dashboard .kb { display: grid; grid-template-columns: repeat(5, minmax(210px, 1fr)); gap: 10px; align-items: start; overflow-x: auto; }
+.dashboard .kb-col { background: var(--background-secondary); border: 1px solid var(--background-modifier-border); border-radius: 8px; padding: 8px; min-width: 0; }
+.dashboard .kb-col h4 { margin: 2px 2px 8px; font-size: 0.8em; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+.dashboard .kb-list { display: flex; flex-direction: column; gap: 8px; }
+.dashboard .kb-card { background: var(--background-primary); border: 1px solid var(--background-modifier-border); border-radius: 6px; padding: 7px 9px; }
+.dashboard .kb-top { display: flex; gap: 6px; align-items: center; margin-bottom: 3px; }
+.dashboard .kb-id { margin-left: auto; font-size: 0.72em; color: var(--text-faint); }
+.dashboard .kb-chip { font-size: 0.68em; font-weight: 700; padding: 0 5px; border-radius: 4px; background: var(--background-modifier-border); color: var(--text-muted); }
+.dashboard .kb-chip.p-p0 { background: #d94c4c; color: #fff; }
+.dashboard .kb-chip.p-p1 { background: #e08a2e; color: #fff; }
+.dashboard .kb-chip.p-p2 { background: #4c8fd9; color: #fff; }
+.dashboard .kb-chip.bug { background: transparent; border: 1px solid #d94c4c; color: #d94c4c; }
+.dashboard .kb-title { font-size: 0.88em; line-height: 1.3; }
+.dashboard .kb-meta { display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 4px; font-size: 0.72em; color: var(--text-faint); }
+.dashboard .kb-empty { color: var(--text-faint); text-align: center; padding: 6px; }
+
+/* Home refinements */
+.dashboard .metadata-container { display: none; }
+.dashboard .dash-grid { display: block; column-width: 460px; column-gap: 12px; }
+.dashboard .dash-card { break-inside: avoid; margin-bottom: 12px; display: inline-block; width: 100%; box-sizing: border-box; }
+.dashboard .dash-body table { table-layout: auto; }
+.dashboard .dash-body td:first-child, .dashboard .dash-body th:first-child { width: 1%; white-space: nowrap; }
+.dashboard .kb-chip.sev-critical { background: #d94c4c; color: #fff; }
+.dashboard .kb-chip.sev-major { background: #e08a2e; color: #fff; }
+.dashboard .kb-chip.sev-minor { background: #4c8fd9; color: #fff; }
+.dashboard .dash-body th span:last-child { display: none; }
+
+/* Bars + shared dashboard pieces */
+.dashboard .dash-bar { height: 6px; background: var(--background-modifier-border); border-radius: 3px; margin: 2px 0 8px; overflow: hidden; }
+.dashboard .dash-bar > div { height: 100%; background: var(--interactive-accent); }
+.dashboard .dash > h3 { margin: 14px 0 8px; }
+.dashboard .kb { margin-bottom: 14px; }
+
+/* Editable triage table */
+.dashboard .dash-card.wide { column-span: all; }
+.dashboard table.dash-edit { width: 100%; font-size: 0.85em; }
+.dashboard table.dash-edit td, .dashboard table.dash-edit th { padding: 3px 6px; vertical-align: middle; }
+.dashboard .dash-select { font-size: 0.9em; padding: 1px 4px; height: 24px; }
+.dashboard .dash-actions { white-space: nowrap; }
+.dashboard .dash-btn { font-size: 0.78em; padding: 1px 8px; height: 22px; margin-right: 4px; }
+
+/* Triage: single full-width column */
+.dashboard .dash-grid.one { column-count: 1; column-width: auto; }
+.dashboard .dash-grid.one .dash-card { display: block; }
+.dashboard table.dash-edit { table-layout: auto; width: 100%; }
+.dashboard table.dash-edit td:nth-child(2) { width: 50%; }
+
+/* Colour-coded selects (priority / type) */
+.dashboard .dash-select.p-p0 { background: #d94c4c; color: #fff; font-weight: 700; }
+.dashboard .dash-select.p-p1 { background: #e08a2e; color: #fff; font-weight: 700; }
+.dashboard .dash-select.p-p2 { background: #4c8fd9; color: #fff; font-weight: 700; }
+.dashboard .dash-select.t-bug { border: 1px solid #d94c4c; color: #d94c4c; }
+
+/* Priority/type selects look like chips */
+.dashboard .dash-select { appearance: none; -webkit-appearance: none; border-radius: 4px; text-align: center; padding: 0 8px; min-width: 46px; box-shadow: none; }
+.dashboard .dash-select.p-p3 { background: var(--background-modifier-border); color: var(--text-muted); }
+
+/* Quiet header on dashboards */
+.metadata-container:has([data-property-key="cssclasses"]) { display: none !important; }
+.dashboard .inline-title { font-size: 1.5em; margin-bottom: 2px; }
+.dashboard .markdown-preview-sizer > div > p:first-of-type, .dashboard .cm-line { }
+.dashboard p > em { color: var(--text-faint); font-size: 0.85em; }
+
+/* Dashboard tab bar */
+.dashboard .dash-nav { display: flex; flex-wrap: wrap; gap: 6px; position: sticky; top: 0; z-index: 5; padding: 6px 0 8px; background: var(--background-primary); }
+.dashboard .dash-nav-item { text-decoration: none !important; padding: 4px 14px; border-radius: 999px; background: var(--background-secondary); border: 1px solid var(--background-modifier-border); color: var(--text-muted); font-size: 0.9em; font-weight: 500; }
+.dashboard .dash-nav-item:hover { background: var(--background-modifier-hover); color: var(--text-normal); }
+.dashboard .dash-nav-item.active { background: var(--interactive-accent); border-color: var(--interactive-accent); color: var(--text-on-accent); }
+.dashboard .dash-nav-badge { margin-left: 6px; font-size: 0.75em; font-weight: 700; padding: 0 6px; border-radius: 999px; background: #d94c4c; color: #fff; }
+
+.dashboard .dash-nav-item { cursor: pointer; }
+.dashboard .dash-nav-icon { display: inline-flex; vertical-align: -2px; margin-right: 6px; }
+.dashboard .dash-nav-icon svg { width: 15px; height: 15px; }
+
+
+.dashboard .dash-add { margin-left: auto; min-width: 280px; height: 28px; font-size: 0.9em; }
+
+/* Status select on cards */
+.dashboard .kb-status { margin-top: 6px; width: 100%; text-align: left; color: var(--text-muted); background: var(--background-secondary); }
+.dashboard .kb-card:hover .kb-status { color: var(--text-normal); }
+
+/* Use the full pane width (large monitors) */
+.dashboard { --file-line-width: 100%; --file-margins: 0 16px; }
+.dashboard .markdown-preview-sizer, .dashboard .markdown-preview-section, .dashboard .markdown-rendered,
+.dashboard .cm-sizer, .dashboard .cm-contentContainer, .dashboard .cm-content { max-width: none !important; width: 100% !important; margin-inline: 0 !important; }
+.dashboard .dash, .dashboard .dash-grid, .dashboard .kb { width: 100%; max-width: none; }
+.dashboard .dash-grid:not(.one) { column-width: 400px; column-gap: 12px; }
+
+/* Fill the full width: CSS grid instead of balanced columns (balancing left the right columns empty) */
+.dashboard .dash-grid:not(.one) { display: grid; column-width: auto; column-count: auto; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 12px; align-items: start; }
+.dashboard .dash-grid:not(.one) > .dash-card { display: block; width: auto; margin-bottom: 0; break-inside: auto; }
+
+/* Cards stretch to the full row height */
+.dashboard .dash-grid:not(.one) { align-items: stretch; }
+.dashboard .dash-grid:not(.one) > .dash-card { height: 100%; box-sizing: border-box; }
+
+/* Home: rows share the full pane height */
+.dashboard .dash-grid.fill { min-height: calc(100vh - 170px); grid-auto-rows: minmax(min-content, 1fr); }
+
+/* Simplified kanban card: status "move to" is a quiet control that appears on hover */
+.dashboard .kb-card .kb-meta { align-items: center; }
+.dashboard .kb-card .kb-status { width: auto; margin: 0 0 0 auto; height: 18px; padding: 0 6px; font-size: 0.95em; background: transparent; border: none; color: var(--text-faint); opacity: 0; }
+.dashboard .kb-card:hover .kb-status, .dashboard .kb-card .kb-status:focus { opacity: 1; background: var(--background-modifier-hover); }
+.dashboard td .kb-status { width: auto; margin: 0; }
+
+/* Status select: always visible, hugs its content */
+.dashboard .kb-card .kb-status { opacity: 1; width: auto; min-width: 0; background: var(--background-secondary); color: var(--text-muted); border: 1px solid var(--background-modifier-border); border-radius: 4px; }
+.dashboard .kb-card .kb-status:hover { background: var(--background-modifier-hover); color: var(--text-normal); }
+
+/* Status select sits in the top row, right of the id */
+.dashboard .kb-top .kb-status { margin: 0; }
+.dashboard .kb-top .kb-id { margin-left: auto; }
+
+.dashboard .kb-top .kb-area { font-size: 0.72em; color: var(--text-muted); }
+.dashboard .kb-top { flex-wrap: wrap; }
+
+/* Roomier kanban cards */
+.dashboard .kb-card { padding: 12px 14px; }
+.dashboard .kb-top { margin-bottom: 8px; gap: 8px; }
+.dashboard .kb-title { line-height: 1.4; }
+.dashboard .kb-meta { margin-top: 8px; }
+.dashboard .kb-list { gap: 10px; }
+.dashboard .kb-col { padding: 10px; }
+
+.dashboard .kb-status { field-sizing: content; }
+.dashboard .kb-card .kb-status { width: auto; }
+
+.dashboard .kb-status { field-sizing: content; min-width: 0 !important; width: auto; padding: 0 8px !important; text-align: center; }
+
+.dashboard tr.dash-pending { opacity: 0.4; transition: opacity 0.15s; }
+
+/* Triage: row hover highlight */
+.dashboard table.dash-edit tbody tr { transition: background 0.1s; }
+.dashboard table.dash-edit tbody tr:hover { background: var(--background-modifier-hover); }
+.dashboard table.dash-edit tbody tr:hover td { border-color: transparent; }
+
+/* Hide sort-order notes (Custom File Explorer sorting) from the file explorer */
+.nav-file:has(> .nav-file-title[data-path$="sortspec.md"]) { display: none; }
+
+/* File explorer: indent items inside a folder further from the folder row */
+.nav-files-container { --nav-item-children-padding-left: 22px; }
+.nav-folder:not(.mod-root) > .nav-folder-children, .nav-folder:not(.mod-root) > .tree-item-children { padding-inline-start: 22px; }
+
+/* File explorer: white icon and label on hover (black in light theme) */
+.theme-dark .nav-files-container { --iconic-hover: #fff; }
+.theme-light .nav-files-container { --iconic-hover: #000; }
+.nav-files-container .tree-item-self:hover,
+.nav-files-container .tree-item-self:hover .tree-item-inner { color: var(--iconic-hover); }
+.nav-files-container .tree-item-self:hover > .tree-item-icon.iconic-icon > .svg-icon,
+.nav-files-container .tree-item-self:hover .iconic-icon .svg-icon { color: var(--iconic-hover) !important; }
+
+/* Dark theme: near-black, flat surfaces with soft rounded selection (Linear-like) */
+.theme-dark {
+  --background-primary: #131313;
+  --background-primary-alt: #171718;
+  --background-secondary: #0d0d0e;
+  --background-secondary-alt: #0d0d0e;
+  --background-modifier-border: #1f2021;
+  --background-modifier-border-hover: #2e2e32;
+  --background-modifier-hover: #1b1b1d;
+  --background-modifier-active-hover: #1f1f22;
+  --titlebar-background: #0d0d0e;
+  --titlebar-background-focused: #0d0d0e;
+  --tab-container-background: #0d0d0e;
+  --nav-item-background-hover: #181919;
+  --nav-item-background-active: #1f2021;
+  --nav-item-background-selected: #1f2021;
+  --nav-item-color-active: #fff;
+  --nav-item-color-selected: #fff;
+  --text-normal: #e8e8ea;
+  --text-muted: #9a9aa0;
+  --text-faint: #6b6b72;
+  --divider-color: #191a1b;
+}
+.theme-dark .workspace-split.mod-left-split,
+.theme-dark .workspace-split.mod-left-split .workspace-leaf-content,
+.theme-dark .nav-files-container { background-color: var(--background-secondary); }
+.theme-dark .workspace-ribbon.mod-left { background-color: var(--background-secondary); border-right: 1px solid var(--divider-color); }
+.theme-dark .nav-file-title, .theme-dark .nav-folder-title { border-radius: 6px; }
+.theme-dark .nav-file-title.is-active, .theme-dark .nav-file-title.is-active:hover { background-color: var(--nav-item-background-active); }
+
+/* Accent colour: #1B994C */
+body {
+  --accent-h: 143;
+  --accent-s: 70%;
+  --accent-l: 35%;
+  --interactive-accent: #1b994c;
+  --interactive-accent-hover: #20ad57;
+  --text-accent: #1b994c;
+  --text-accent-hover: #20ad57;
+  --text-on-accent: #fff;
+}
+.theme-dark { --text-accent: #2bbd68; --text-accent-hover: #3fd37c; }
+
+/* Triage decision bar at the top of an issue note */
+.triage-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 8px 10px; margin: 4px 0 12px; border: 1px solid var(--background-modifier-border); border-radius: 8px; background: var(--background-secondary); }
+.triage-bar .triage-label { margin-right: auto; font-size: 0.85em; color: var(--text-muted); }
+.triage-bar .dash-btn { font-size: 0.8em; padding: 2px 10px; height: 24px; }

@@ -1,0 +1,11 @@
+{
+  "name": "obsidian-product-vault",
+  "owner": { "name": "agilek", "url": "https://github.com/agilek" },
+  "plugins": [
+    {
+      "name": "product-vault",
+      "source": "./",
+      "description": "Linear-style issue tracking in Obsidian, set up and maintained by Claude Code."
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "product-vault",
+  "version": "1.0.0",
+  "description": "Linear-style issue tracking in Obsidian: a vault template with triage, board, backlog, roadmap and decision dashboards, plus a Claude Code skill that sets it up and migrates your TODO.md.",
+  "author": { "name": "agilek", "url": "https://github.com/agilek" },
+  "homepage": "https://github.com/agilek/obsidian-product-vault",
+  "repository": "https://github.com/agilek/obsidian-product-vault",
+  "license": "MIT",
+  "keywords": ["obsidian", "issue-tracking", "dataview", "kanban", "linear", "skill"]
+}

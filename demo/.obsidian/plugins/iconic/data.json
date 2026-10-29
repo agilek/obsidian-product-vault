@@ -1,0 +1,104 @@
+{
+  "biggerIcons": "on",
+  "clickableIcons": "desktop",
+  "showAllFileIcons": false,
+  "showAllFolderIcons": false,
+  "minimalFolderIcons": false,
+  "showItemName": "desktop",
+  "biggerSearchResults": "mobile",
+  "maxSearchResults": 50,
+  "colorPicker1": "list",
+  "colorPicker2": "rgb",
+  "uncolorHover": true,
+  "uncolorDrag": false,
+  "uncolorSelect": false,
+  "uncolorQuick": false,
+  "rememberDeletedItems": false,
+  "dialogState": {
+    "iconMode": true,
+    "emojiMode": false,
+    "rulePage": "file"
+  },
+  "appIcons": [],
+  "tabIcons": [],
+  "fileIcons": {
+    "Dashboard": {
+      "icon": "lucide-layout-dashboard",
+      "color": "gray"
+    },
+    "Issues": {
+      "icon": "lucide-circle-dot",
+      "color": "gray"
+    },
+    "Roadmap": {
+      "icon": "lucide-milestone",
+      "color": "gray"
+    },
+    "Discovery": {
+      "icon": "lucide-telescope",
+      "color": "gray"
+    },
+    "Decisions": {
+      "icon": "lucide-scale",
+      "color": "gray"
+    },
+    "Progress": {
+      "icon": "lucide-trending-up",
+      "color": "gray"
+    },
+    "Reference": {
+      "icon": "lucide-book-open",
+      "color": "gray"
+    },
+    "Templates": {
+      "icon": "lucide-layout-template",
+      "color": "gray"
+    },
+    "Archive": {
+      "icon": "lucide-archive",
+      "color": "gray"
+    },
+    "Dashboard/Home.md": {
+      "icon": "lucide-home",
+      "color": "gray"
+    },
+    "Dashboard/Triage.md": {
+      "icon": "lucide-inbox",
+      "color": "gray"
+    },
+    "Dashboard/Board.md": {
+      "icon": "lucide-kanban",
+      "color": "gray"
+    },
+    "Dashboard/Bugs.md": {
+      "icon": "lucide-bug",
+      "color": "gray"
+    },
+    "Dashboard/Backlog.md": {
+      "icon": "lucide-list-todo",
+      "color": "gray"
+    },
+    "Dashboard/Roadmap.md": {
+      "icon": "lucide-milestone",
+      "color": "gray"
+    },
+    "Dashboard/Launch.md": {
+      "icon": "lucide-rocket",
+      "color": "gray"
+    },
+    "Dashboard/Discovery.md": {
+      "icon": "lucide-telescope",
+      "color": "gray"
+    },
+    "Dashboard/Activity.md": {
+      "icon": "lucide-activity",
+      "color": "gray"
+    }
+  },
+  "bookmarkIcons": [],
+  "tagIcons": [],
+  "propertyIcons": [],
+  "ribbonIcons": [],
+  "fileRules": [],
+  "folderRules": []
+}
