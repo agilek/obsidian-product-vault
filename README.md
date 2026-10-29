@@ -8,6 +8,8 @@
 |---|---|
 | ![Triage inbox with accept, backlog, snooze and decline buttons](docs/triage.png) | ![Kanban board by status](docs/board.png) |
 
+**Quick start:** [try the demo](#try-the-demo-2-minutes), or let your AI coding agent set it up for you with [one copy-paste prompt](#install-with-an-ai-agent-copy-and-paste).
+
 ## Why
 
 Small teams and solo builders often want Linear's discipline (one inbox, clear statuses, priorities, milestones) without another SaaS, seat prices or lock-in. Here every issue is a Markdown file with YAML frontmatter, and the dashboards are [Dataview](https://github.com/blacksmithgu/obsidian-dataview) queries over that frontmatter. It's diffable, greppable and works offline. Put it in git and you have full history. An AI coding agent can read and write it as easily as you can.
@@ -34,6 +36,47 @@ git clone https://github.com/agilek/obsidian-product-vault.git
 In Obsidian: **Open folder as vault** → choose `obsidian-product-vault/demo` → **Trust author and enable plugins** → open `Dashboard/Home`.
 
 The demo is a fictional hiking app, "Trailhead", with 16 issues, two milestones, ideas, a decision and a progress note. The plugins are included, so it works right away.
+
+## Install with an AI agent (copy and paste)
+
+Paste this into Claude Code, Codex, Cursor or any coding agent that can run shell commands. Start it in your project's repo if you want the vault connected to that code; it works without a repo too.
+
+```text
+Set up "Obsidian Product Vault" (https://github.com/agilek/obsidian-product-vault) for me:
+a Linear-style issue tracker inside Obsidian. Guide me step by step and ask before
+anything you can't undo.
+
+1. Read the repo's README.md and skills/product-vault/SKILL.md first and follow them.
+   Clone the repo to a tools folder (default ~/.local/share/obsidian-product-vault,
+   or `git pull` if it is already there). Don't clone it into my project.
+2. Check the prerequisites: git, curl, rsync and python3 (macOS or Linux; on Windows
+   use WSL or Git Bash, otherwise follow the README's "Option B: by hand"). Tell me
+   what is missing and how to install it; don't install system packages without asking.
+3. Ask me, all at once, with sensible defaults I can accept:
+   - product name (default: the current repo's folder name) and issue prefix
+     (2–4 capitals, e.g. ACME),
+   - where vaults live (default ~/Obsidian/product, passed as PRODUCT_VAULTS),
+   - whether to connect it to the current code repo (symlink ./vault, git-ignored),
+   - whether to move open items from TODO.md or similar task files into issues.
+4. Run skills/product-vault/setup-vault.sh <slug> <PREFIX> [<repo-path>] ["Display Name"]
+   with PRODUCT_VAULTS set. Show me the output; stop and explain if it fails.
+5. Fill in the new vault's CLAUDE.md "Areas" (from my project's structure) and
+   Reference/Product brief.md (from my README). Keep it short.
+6. If I said yes to migrating: turn every open item into an issue note exactly as
+   the "Migration brief" in SKILL.md describes, run its verification, show me the
+   counts, then replace the old task file with a pointer to the vault (ask first).
+7. If you are Claude Code: install the skill so it's there next time
+   (`ln -s <clone>/skills/product-vault ~/.claude/skills/product-vault`) and add a
+   short pointer to the vault in my project's CLAUDE.md. Other agents: add the same
+   pointer to AGENTS.md or your rules file, and tell me the vault's CLAUDE.md holds
+   the working rules.
+8. Commit the vault (it is its own git repo). Don't create any remote repository
+   unless I ask; if I do, make it private.
+9. Finish with what I do in Obsidian: "Open folder as vault" → choose the vault
+   folder → "Trust author and enable plugins" → open Dashboard/Home in Reading view
+   (Cmd/Ctrl+E). Then a 5-line cheat sheet: file an issue, triage it, move it on
+   the Board, refer to an issue by its code, where the rules live.
+```
 
 ## Create your own vault
 
