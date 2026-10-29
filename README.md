@@ -99,7 +99,7 @@ It copies `skills/product-vault/template/`, fills in the product name and issue 
 
 **Tip:** dashboards are meant to be read in **Reading view** (`Cmd/Ctrl+E`). In editing view, Obsidian may show a dashboard's query code instead of the dashboard. The tabs in the dashboard bar always open Reading view. The demo opens every note in Reading view (Settings → Editor → Default view for new tabs).
 
-Requires Obsidian 1.5 or later. Dataview JavaScript queries must be on; the template already turns them on.
+Requires Obsidian 1.7.2 or later (the Iconic plugin needs it). Dataview JavaScript queries must be on; the template already turns them on.
 
 ## Use it with Claude Code (optional)
 
