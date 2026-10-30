@@ -26,14 +26,15 @@ add.addEventListener("keydown", async e => {
   const nums = dv.pages('"Issues" or "Archive"').where(p => p.id).map(p => parseInt(String(p.id).split("-").pop())).values;
   const id = `TRL-${String(Math.max(0, ...nums) + 1).padStart(3, "0")}`;
   const day = window.moment().format("YYYY-MM-DD");
-  const body = `---\nid: ${id}\ntitle: ${JSON.stringify(title)}\ntype: task\nstatus: triage\npriority: p2\narea: \nsource: owner\ncreated: ${day}\nupdated: ${day}\ntags: []\n---\n# ${title}\n\n\`\`\`dataviewjs\nawait dv.view("Dashboard/triage-actions")\n\`\`\`\n\n## Problem\n\n\n## Related\n- Milestone: \n\n## Activity\n- ${day}: filed in triage (owner)\n`;
+  const stamp = window.moment().format("YYYY-MM-DD HH:mm");
+  const body = `---\nid: ${id}\ntitle: ${JSON.stringify(title)}\ntype: task\nstatus: triage\npriority: p2\narea: \nsource: owner\ncreated: ${day}\nupdated: ${day}\ntags: []\n---\n# ${title}\n\n\`\`\`dataviewjs\nawait dv.view("Dashboard/triage-actions")\n\`\`\`\n\n## Problem\n\n\n## Related\n- Milestone: \n\n## Activity\n- ${stamp}: filed in triage (owner)\n`;
   await app.vault.create(`Issues/${id} ${title.replace(/[\\/:*?"<>|]/g, "")}.md`, body);
   add.value = "";
   new Notice(`Filed ${id} in Triage`);
 });
 ```
 
-*Generated from the `## Activity` section of every issue. Edit the issue notes, not this page.*
+*Generated from the `## Activity` section of every issue (lines are `- YYYY-MM-DD HH:MM: text`; older lines may have no time). Edit the issue notes, not this page.*
 
 ```dataviewjs
 const issues = dv.pages('"Issues" or "Archive"').where(i => i.id);
@@ -55,6 +56,25 @@ const fKind = sel("Kind", [["All entries", ""], ["Field changes", "change"], ["N
 const out = root.createDiv({ cls: "dash-card" });
 const body = out.createDiv({ cls: "dash-body" });
 
+// --- Activity line parsing and ordering (pure functions; tested outside Obsidian) ---
+// New lines: "- YYYY-MM-DD HH:MM: text". Old lines have no time: "- YYYY-MM-DD: text".
+// Returns { day, time: "HH:MM" or "", msg } or null for anything else.
+function parseActivityLine(line) {
+  const e = String(line).match(/^- (\d{4}-\d{2}-\d{2})(?: ([01]?\d|2[0-3]):([0-5]\d))?:\s*(.+)$/);
+  if (!e) return null;
+  return { day: e[1], time: e[2] === undefined ? "" : `${e[2].padStart(2, "0")}:${e[3]}`, msg: e[4] };
+}
+// Newest first: day, then timed lines (latest time first) before untimed lines of that day,
+// then issue id and file position (later line first), as before.
+function compareActivity(a, b) {
+  if (a.day !== b.day) return a.day < b.day ? 1 : -1;
+  if (!a.time !== !b.time) return a.time ? -1 : 1;
+  if (a.time !== b.time) return a.time < b.time ? 1 : -1;
+  if (a.i.id !== b.i.id) return a.i.id < b.i.id ? 1 : -1;
+  return b.n - a.n;
+}
+// --- end of pure functions ---
+
 const entries = [];
 for (const i of issues) {
   const f = app.vault.getAbstractFileByPath(i.file.path);
@@ -62,11 +82,11 @@ for (const i of issues) {
   const m = text.match(/\n## Activity\n([\s\S]*?)(?=\n## |$)/);
   if (!m) continue;
   m[1].split("\n").forEach((line, n) => {
-    const e = line.match(/^- (\d{4}-\d{2}-\d{2}):\s*(.+)$/);
-    if (e) entries.push({ day: e[1], msg: e[2], n, i });
+    const e = parseActivityLine(line);
+    if (e) entries.push({ ...e, n, i });
   });
 }
-entries.sort((a, b) => a.day < b.day ? 1 : a.day > b.day ? -1 : a.i.id < b.i.id ? 1 : a.i.id > b.i.id ? -1 : b.n - a.n);
+entries.sort(compareActivity);
 
 function render() {
   body.empty();
@@ -89,6 +109,7 @@ function render() {
       list = body.createEl("ul");
     }
     const li = list.createEl("li");
+    if (e.time) li.createSpan({ text: `${e.time} `, attr: { style: "opacity: 0.6; font-variant-numeric: tabular-nums;" } });
     li.createEl("a", { cls: "internal-link", text: `${e.i.id} ${e.i.title}`, attr: { "data-href": e.i.file.path, href: e.i.file.path } });
     li.createSpan({ text: ` — ${e.msg}` });
   }

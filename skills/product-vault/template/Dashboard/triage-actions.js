@@ -4,6 +4,7 @@ const i = dv.current();
 if (i && i.status == "triage") {
   const BLOCK = /```dataviewjs\s*\n\s*await dv\.view\("Dashboard\/triage-actions"\)\s*\n```\n*/;
   const today = () => window.moment().format("YYYY-MM-DD");
+  const now = () => window.moment().format("YYYY-MM-DD HH:mm");
   const snoozed = i.snooze_until && i.snooze_until > dv.date("today");
   const bar = dv.el("div", "", { cls: "dash" }).createDiv({ cls: "triage-bar" });
   bar.createSpan({ cls: "triage-label", text: snoozed ? `Triage · snoozed until ${i.snooze_until.toFormat("d LLL yyyy")}` : "Triage · decide" });
@@ -20,7 +21,7 @@ if (i && i.status == "triage") {
     });
     await app.vault.process(f, t => {
       if (leave) t = t.replace(BLOCK, "");
-      const line = `- ${today()}: ${changes.join("; ")} (decided on the note)`;
+      const line = `- ${now()}: ${changes.join("; ")} (decided on the note)`;
       return /\n## Activity\n/.test(t) ? t.trimEnd() + "\n" + line + "\n" : t.trimEnd() + "\n\n## Activity\n" + line + "\n";
     });
     const n = new Notice("", 8000);

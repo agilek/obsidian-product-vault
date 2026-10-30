@@ -148,7 +148,7 @@ tags: [verify]
 ---
 ```
 
-The dashboards are `dataviewjs` blocks that query `Issues/` and render tables and cards. Buttons and menus write back with Obsidian's `processFrontMatter` and append a line to the note's `## Activity` section. A triage issue embeds `Dashboard/triage-actions.js`, so you can also decide on it from the note itself.
+The dashboards are `dataviewjs` blocks that query `Issues/` and render tables and cards. Buttons and menus write back with Obsidian's `processFrontMatter` and append a line (`- YYYY-MM-DD HH:MM: text`, local time, so several changes on one day stay ordered; older date-only lines still work) to the note's `## Activity` section. A triage issue embeds `Dashboard/triage-actions.js`, so you can also decide on it from the note itself.
 
 **Customise:**
 - **Areas:** list your own in the vault's `CLAUDE.md`. `area` is free text.

@@ -40,4 +40,4 @@ await dv.view("Dashboard/triage-actions")
 - 
 
 ## Activity
-- {{date:YYYY-MM-DD}}: filed
+- {{date:YYYY-MM-DD HH:mm}}: filed

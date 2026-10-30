@@ -17,7 +17,7 @@ This vault is the **source of truth for tasks, bugs, roadmap, discovery and deci
   - `horizon` (features): now | next | later
   - tag `verify` when a bug is reported but not reproduced on current code
 - When work starts/finishes/blocks: set `status`, set `updated` to today. Done items stay in place; sweep `done`/`cancelled` older than 60 days into `Archive/`.
-- Keep a `## Activity` section as the **last** section of every issue: append one dated line per change, `- YYYY-MM-DD: status triage → todo (why)`; also log priority/area/milestone changes and meaningful findings. The dashboards write the same lines when the owner edits status/priority there. Never rewrite earlier lines.
+- Keep a `## Activity` section as the **last** section of every issue: append one line per change, `- YYYY-MM-DD HH:MM: status triage → todo (why)` (local 24h time, zero-padded; get it from `date`, never guess; older lines may have only the date, leave them as they are); also log priority/area/milestone changes and meaningful findings. The dashboards write the same lines when the owner edits status/priority there. Never rewrite earlier lines.
 - Check for an existing issue before creating one. Prefer updating over duplicating.
 
 ## Other folders
@@ -48,7 +48,7 @@ The owner moves issues in Obsidian (dashboards or frontmatter) and may tell me a
   - `done`: verify if cheap (tests, grep, page check), log it in Activity, check Related notes/milestone exit criteria that should now tick.
   - `todo` / `backlog`: just acknowledge, no work.
   - `cancelled`: ensure a reason is in the note, remove dependents' blocked state.
-- Always update `updated` and append an Activity line for what I did.
+- Always update `updated` and append an Activity line (with the `HH:MM` time) for what I did.
 
 ## Capture: plain-language remarks become notes
 When the owner says something in passing ("we should replace the icon for tool XYZ", "the table feels slow", "what if we offered X", "we decided Y"), triage and record it yourself. Never ask "now or later?".

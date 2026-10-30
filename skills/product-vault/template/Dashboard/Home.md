@@ -26,7 +26,8 @@ add.addEventListener("keydown", async e => {
   const nums = dv.pages('"Issues" or "Archive"').where(p => p.id).map(p => parseInt(String(p.id).split("-").pop())).values;
   const id = `{{PREFIX}}-${String(Math.max(0, ...nums) + 1).padStart(3, "0")}`;
   const day = window.moment().format("YYYY-MM-DD");
-  const body = `---\nid: ${id}\ntitle: ${JSON.stringify(title)}\ntype: task\nstatus: triage\npriority: p2\narea: \nsource: owner\ncreated: ${day}\nupdated: ${day}\ntags: []\n---\n# ${title}\n\n\`\`\`dataviewjs\nawait dv.view("Dashboard/triage-actions")\n\`\`\`\n\n## Problem\n\n\n## Related\n- Milestone: \n\n## Activity\n- ${day}: filed in triage (owner)\n`;
+  const stamp = window.moment().format("YYYY-MM-DD HH:mm");
+  const body = `---\nid: ${id}\ntitle: ${JSON.stringify(title)}\ntype: task\nstatus: triage\npriority: p2\narea: \nsource: owner\ncreated: ${day}\nupdated: ${day}\ntags: []\n---\n# ${title}\n\n\`\`\`dataviewjs\nawait dv.view("Dashboard/triage-actions")\n\`\`\`\n\n## Problem\n\n\n## Related\n- Milestone: \n\n## Activity\n- ${stamp}: filed in triage (owner)\n`;
   await app.vault.create(`Issues/${id} ${title.replace(/[\\/:*?"<>|]/g, "")}.md`, body);
   add.value = "";
   new Notice(`Filed ${id} in Triage`);

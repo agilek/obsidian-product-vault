@@ -25,7 +25,7 @@ One Obsidian vault per product, by default in `~/Obsidian/product/<slug>/` (over
 - Map the source's priorities to `status`/`priority` (blockers → todo p0/p1, next work → backlog p2, polish → backlog p3; decisions the human must make → todo, `source: owner`, tag `decision`). Unconfirmed bugs → `status: triage`, tag `verify`, no milestone, keep the triage `dataviewjs` block under the H1 (remove it from non-triage issues).
 - Exactly one `active` milestone in `Roadmap/`; never a milestone on triage issues.
 - Ideas → `Discovery/`, decisions already made (date + reason) → `Decisions/`, a `Progress/<today> Vault created.md`.
-- Every issue ends with `## Related` then `## Activity` (`- <date>: migrated from <file> (<section>)`); links both ways; no orphan notes; link text = exact filename without `.md`.
+- Every issue ends with `## Related` then `## Activity` (`- <date>: migrated from <file> (<section>)`; migrated lines may stay date-only, every line written after setup is `- YYYY-MM-DD HH:MM: text` in local 24h time); links both ways; no orphan notes; link text = exact filename without `.md`.
 - Verify with a throwaway script outside the vault: frontmatter parses, ids unique and match filenames, values in the allowed sets, every wikilink resolves, section order, one active milestone. Report counts, the p0 list, skipped or merged source lines, and deviations.
 
 ## Improving the template
@@ -33,6 +33,7 @@ One Obsidian vault per product, by default in `~/Obsidian/product/<slug>/` (over
 Change `template/` (placeholders `{{PROJECT}}`, `{{PREFIX}}`), then port the same change to existing vaults by hand (diff `Dashboard/`, `Templates/`, `.obsidian/snippets/`, `CLAUDE.md`).
 
 ## Gotchas
+- Activity lines carry a time: `- YYYY-MM-DD HH:MM: text` (local, 24h, from `date`, never guessed), so several changes to one issue on one day stay ordered. Old date-only lines stay valid; never rewrite them. The Activity dashboard's `parseActivityLine`/`compareActivity` (between the `// --- Activity line parsing` markers) are pure functions you can extract and test with node; anything that writes Activity lines (`Dashboard/triage-actions.js`, `editFM` and the nav input in every dashboard, `Templates/*.md`) must write the time.
 - When turning a vault back into the template, replace the project name and prefix as whole words in prose and in the `{{PREFIX}}-` id patterns only, then diff `Dashboard/`: a blind `s/Element/{{PROJECT}}/` once turned `document.createElement` into `document.create{{PROJECT}}` and crashed every dashboard. `setup-vault.sh` refuses to continue when that happens.
 - YAML titles containing `:` must be quoted. Filenames have spaces: use `find -exec`, never `xargs`.
 - Dataview JS must be enabled (`enableDataviewJs`, shipped in the template's plugin settings). In `dataviewjs`, `dv.el` children must be real DOM nodes; dashboards open pages in Reading view because Live Preview shows the source.

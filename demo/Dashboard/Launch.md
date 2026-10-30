@@ -26,7 +26,8 @@ add.addEventListener("keydown", async e => {
   const nums = dv.pages('"Issues" or "Archive"').where(p => p.id).map(p => parseInt(String(p.id).split("-").pop())).values;
   const id = `TRL-${String(Math.max(0, ...nums) + 1).padStart(3, "0")}`;
   const day = window.moment().format("YYYY-MM-DD");
-  const body = `---\nid: ${id}\ntitle: ${JSON.stringify(title)}\ntype: task\nstatus: triage\npriority: p2\narea: \nsource: owner\ncreated: ${day}\nupdated: ${day}\ntags: []\n---\n# ${title}\n\n\`\`\`dataviewjs\nawait dv.view("Dashboard/triage-actions")\n\`\`\`\n\n## Problem\n\n\n## Related\n- Milestone: \n\n## Activity\n- ${day}: filed in triage (owner)\n`;
+  const stamp = window.moment().format("YYYY-MM-DD HH:mm");
+  const body = `---\nid: ${id}\ntitle: ${JSON.stringify(title)}\ntype: task\nstatus: triage\npriority: p2\narea: \nsource: owner\ncreated: ${day}\nupdated: ${day}\ntags: []\n---\n# ${title}\n\n\`\`\`dataviewjs\nawait dv.view("Dashboard/triage-actions")\n\`\`\`\n\n## Problem\n\n\n## Related\n- Milestone: \n\n## Activity\n- ${stamp}: filed in triage (owner)\n`;
   await app.vault.create(`Issues/${id} ${title.replace(/[\\/:*?"<>|]/g, "")}.md`, body);
   add.value = "";
   new Notice(`Filed ${id} in Triage`);
@@ -46,6 +47,7 @@ const root = dv.el("div", "", { cls: "dash" });
 const grid = () => root.createDiv({ cls: "dash-grid" });
 const msName = m => m?.display ?? (m?.path ? m.path.split("/").pop().replace(/\.md$/, "") : String(m ?? "").replace(/[\[\]"]/g, ""));
 const nowStamp = () => window.moment().format("YYYY-MM-DD");
+const nowTime = () => window.moment().format("YYYY-MM-DD HH:mm");
 async function editFM(i, fn) {
   const f = app.vault.getAbstractFileByPath(i.file.path);
   const changes = [];
@@ -56,7 +58,7 @@ async function editFM(i, fn) {
     fm.updated = nowStamp();
   });
   if (changes.length) await app.vault.process(f, t => {
-    const line = `- ${nowStamp()}: ${changes.join("; ")}`;
+    const line = `- ${nowTime()}: ${changes.join("; ")}`;
     return /\n## Activity\n/.test(t) ? t.trimEnd() + "\n" + line + "\n" : t.trimEnd() + "\n\n## Activity\n" + line + "\n";
   });
 }
